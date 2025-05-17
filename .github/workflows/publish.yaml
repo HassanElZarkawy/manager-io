@@ -46,9 +46,6 @@ jobs:
           echo "New Tag = $new_version_string"
           echo "::set-output name=version::$new_version_string"
 
-      - name: Update version in controller
-        run: sed -i "s/\$version = '.*';/\$version = '${{ steps.extract_version.outputs.version }}';/" app/Http/Controllers/ApiInfoController.php
-
       - name: Log into registry
         run: echo "${{ secrets.GH_TOKEN }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin
 
