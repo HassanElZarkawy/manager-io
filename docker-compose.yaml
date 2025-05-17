@@ -1,0 +1,19 @@
+version: '3.8'
+
+services:
+  manager:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: manager-io
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./manager_data:/data
+    restart: unless-stopped
+    networks:
+      - manager_network
+
+networks:
+  manager_network:
+    driver: bridge
