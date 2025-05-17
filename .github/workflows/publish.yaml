@@ -84,10 +84,17 @@ jobs:
             Example docker-compose.yaml:
 
             ```yaml
-            version: "3.9"
             services:
-              api:
+              manager:
                 image: ${{ steps.prepare_image_name.outputs.image_name }}:${{ steps.extract_version.outputs.version }}
                 ports:
-                  - "80:80"
+                  - "8080:8080"
+                container_name: manager-io
+                volumes:
+                  - ./manager_data:/data
+                restart: unless-stopped
+                networks: manager-network
+            networks:
+              manager_network:
+                driver: bridge
             ```
